@@ -1,0 +1,40 @@
+name: FolderReferencesWithXcodeGen
+
+options:
+  deploymentTarget:
+    iOS: 15.0
+  createIntermediateGroups: true
+
+configs:
+  Debug: debug
+  Release: release
+
+targetTemplates:
+  BaseTarget:
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.co.yumemi.$(PRODUCT_NAME)
+
+targets:
+  FolderReferencesWithXcodeGen:
+    type: application
+    platform: iOS
+    sources:
+      - path: FolderReferencesWithXcodeGen
+        excludes:
+          - Info.plist
+          - Images
+      - path: FolderReferencesWithXcodeGen/Images
+        type: folder
+    settings:
+      base:
+        PRODUCT_NAME: $(PROJECT_NAME)
+        INFOPLIST_FILE: $(PROJECT_NAME)/Info.plist
+        MARKETING_VERSION: 1.0.0
+        TARGETED_DEVICE_FAMILY: 1,2
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: jp.co.yumemi.$(PRODUCT_NAME).dev
+        Release:
+          PRODUCT_BUNDLE_IDENTIFIER: jp.co.yumemi.$(PRODUCT_NAME)
+
